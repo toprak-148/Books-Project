@@ -20,7 +20,7 @@ public class BookController {
         books.addAll(
                 List.of(
                         new Book("Title one","Author one", "science"),
-                        new Book("Title two","Author two", "science"),
+                        new Book("Title two","Author two", "Computer Science"),
                         new Book("Title three","Author three", "math"),
                         new Book("Title four","Author four", "math")
                 )
@@ -102,6 +102,23 @@ public class BookController {
 
    }
 
+   @PutMapping("/api/books/{title}")
+    public void updateBook(@PathVariable String title,@RequestBody Book updateBook)
+   {
+       for(int i = 0 ; i < books.size();i++)
+       {
+           if(books.get(i).getTitle().equalsIgnoreCase(title))
+           {
+               books.set(i,updateBook);
+               return;
+           }
+       }
+   }
 
+   @DeleteMapping("/api/books/{title}")
+    public void deleteBook(@PathVariable String title)
+   {
+       books.removeIf(book -> book.getTitle().equalsIgnoreCase(title));
+   }
 
 }
