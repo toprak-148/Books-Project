@@ -1,10 +1,7 @@
 package com.tdogan.books.controller;
 
 import com.tdogan.books.entity.Book;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +20,40 @@ public class BookController {
         books.addAll(
                 List.of(
                         new Book("Title one","Author one", "science"),
-                        new Book("Title one","Author one", "science"),
-                        new Book("Title one","Author one", "science"),
-                        new Book("Title one","Author one", "science")
+                        new Book("Title two","Author two", "science"),
+                        new Book("Title three","Author three", "math"),
+                        new Book("Title four","Author four", "math")
                 )
         );
     }
 
+
+    @GetMapping("/api/books")
+    public List<Book> getBooks(@RequestParam(required = false) String category)
+    {
+        if(category == null)
+            return books;
+    /*
+        List<Book> filteredBooks = new ArrayList<>();
+        for(Book book:books)
+        {
+            if(book.getCategory().equalsIgnoreCase(category))
+                filteredBooks.add(book);
+        }
+        return filteredBooks;
+           ya da stream ile yapilabilir
+     */
+        return books.stream()
+                .filter(book -> book.getCategory().equalsIgnoreCase(category))
+                .toList();
+
+
+
+
+    }
+
+
+    /*
     @GetMapping("/api/books")
     public List<Book> getBooks() { return this.books; }
 
@@ -52,13 +76,31 @@ public class BookController {
     @GetMapping("/api/books/{title}")
     public Book getBookByTitle(@PathVariable String title)
     {
-        books.stream()
+        return books.stream()
                 .filter(book -> book.getTitle().equalsIgnoreCase(title))
                 .findFirst()
                 .orElse(null);
 
 
+
     }
+
+   @PostMapping("/api/books")
+   public void createBook(@RequestBody  Book newBook)
+   {
+       /*
+       for(Book book:books)
+           if(book.getTitle().equalsIgnoreCase(newBook.getTitle()))
+               return ;
+
+        */
+       boolean isNewBook = books.stream()
+                       .noneMatch(book -> book.getTitle().equalsIgnoreCase(newBook.getTitle()));
+       if(isNewBook)
+           books.add(newBook);
+
+
+   }
 
 
 
