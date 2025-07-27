@@ -19,10 +19,14 @@ public class BookController {
     {
         books.addAll(
                 List.of(
-                        new Book("Title one","Author one", "science"),
-                        new Book("Title two","Author two", "Computer Science"),
-                        new Book("Title three","Author three", "math"),
-                        new Book("Title four","Author four", "math")
+                        new Book(1,"Title one","Author one", "science",5),
+                        new Book(2,"Title two","Author two", "Computer Science",5),
+                        new Book(3,"Title three","Author three", "math",5),
+                        new Book(4,"Title four","Author four", "math",5),
+                        new Book(5,"Java Spring Master","Toprak Dogan","Computer Sceince",5),
+                        new Book(6,"Java OOP Master","Akın Kaldıroğlu","Computer Sceince",5),
+                       
+
                 )
         );
     }
@@ -119,6 +123,26 @@ public class BookController {
     public void deleteBook(@PathVariable String title)
    {
        books.removeIf(book -> book.getTitle().equalsIgnoreCase(title));
+   }
+
+   @PutMapping("/{id}")
+   public void updateBook(@PathVariable long id , @RequestBody Book updateBook)
+   {
+       for(int i = 0 ; i < books.size(); i++)
+       {
+           if(books.get(i).getId() == id )
+           {
+               books.set(i,updateBook);
+               return;
+           }
+       }
+   }
+
+   @DeleteMapping("/{id}")
+    public void deleteBook(@PathVariable long id )
+   {
+       books.removeIf(book -> book.getId()== id);
+
    }
 
 }
