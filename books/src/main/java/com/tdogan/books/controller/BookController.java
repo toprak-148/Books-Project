@@ -24,8 +24,8 @@ public class BookController {
                         new Book(3,"Title three","Author three", "math",5),
                         new Book(4,"Title four","Author four", "math",5),
                         new Book(5,"Java Spring Master","Toprak Dogan","Computer Sceince",5),
-                        new Book(6,"Java OOP Master","Akın Kaldıroğlu","Computer Sceince",5),
-                       
+                        new Book(6,"Java OOP Master","Akın Kaldıroğlu","Computer Sceince",5)
+
 
                 )
         );
