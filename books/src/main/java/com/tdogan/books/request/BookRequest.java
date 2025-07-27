@@ -1,36 +1,19 @@
-package com.tdogan.books.entity;
+package com.tdogan.books.request;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+public class BookRequest {
 
 
-
-public class Book {
-
-    private long id;
     private String title;
     private String author;
     private String category;
     private int rating;
 
+    public BookRequest(String title, String author, String category, int rating) {
 
-    public Book(long id ,String title, String author, String category ,int rating) {
         this.title = title;
         this.author = author;
         this.category = category;
-        this.id = id;
         this.rating = rating;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    public int getRating() {
-        return rating;
     }
 
     public String getTitle() {
@@ -55,5 +38,13 @@ public class Book {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }

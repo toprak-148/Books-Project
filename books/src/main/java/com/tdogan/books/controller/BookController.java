@@ -1,6 +1,7 @@
 package com.tdogan.books.controller;
 
 import com.tdogan.books.entity.Book;
+import com.tdogan.books.request.BookRequest;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ public class BookController {
     }
 
    @PostMapping("/api/books")
-   public void createBook(@RequestBody  Book newBook)
+   public void createBook(@RequestBody BookRequest bookRequest)
    {
        /*
        for(Book book:books)
@@ -98,10 +99,26 @@ public class BookController {
                return ;
 
         */
-       boolean isNewBook = books.stream()
-                       .noneMatch(book -> book.getTitle().equalsIgnoreCase(newBook.getTitle()));
-       if(isNewBook)
-           books.add(newBook);
+
+       long id;
+       if(books.isEmpty())
+           id = 1;
+       else{
+           id = books.get(books.size() - 1 ).getId() + 1;
+       }
+
+       Book book = new Book(
+               id,
+               bookRequest.getTitle(),
+               bookRequest.getAuthor(),
+               bookRequest.getCategory(),
+               bookRequest.getRating()
+
+       );
+       books.add(book);
+       
+
+
 
 
    }
