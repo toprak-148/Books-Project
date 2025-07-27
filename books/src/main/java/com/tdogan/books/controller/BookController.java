@@ -107,16 +107,9 @@ public class BookController {
            id = books.get(books.size() - 1 ).getId() + 1;
        }
 
-       Book book = new Book(
-               id,
-               bookRequest.getTitle(),
-               bookRequest.getAuthor(),
-               bookRequest.getCategory(),
-               bookRequest.getRating()
-
-       );
+       Book book = convertBook(id,bookRequest);
        books.add(book);
-       
+
 
 
 
@@ -156,10 +149,19 @@ public class BookController {
    }
 
    @DeleteMapping("/{id}")
-    public void deleteBook(@PathVariable long id )
-   {
-       books.removeIf(book -> book.getId()== id);
+    public void deleteBook(@PathVariable long id ) {
+       books.removeIf(book -> book.getId() == id);
 
+   }
+   private Book convertBook(long id , BookRequest bookRequest)
+   {
+       return new Book(
+               id,
+               bookRequest.getTitle(),
+               bookRequest.getAuthor(),
+               bookRequest.getCategory(),
+               bookRequest.getRating()
+       );
    }
 
 }
